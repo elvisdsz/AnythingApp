@@ -1,0 +1,34 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<body>
+<img src="/static/loading.gif" style="position: fixed;top: 35%;left: 40%;"/>
+<form id="pos" action="/cards/" method="post">
+{% csrf_token %}
+<input type="hidden" name="latitude" value="">
+<input type="hidden" name="longitude" value="">
+</form>
+
+
+
+<script>
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(sendPosition);
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function sendPosition(position) {
+	document.getElementById('pos').latitude.value = position.coords.latitude;
+	document.getElementById('pos').longitude.value = position.coords.longitude;
+	document.forms[0].submit();
+}
+
+getLocation();
+</script>
+</body>
+</html>
